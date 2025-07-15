@@ -3,19 +3,15 @@ import './App.css'
 import RecipeInfo from "./Components/RecipeInfo"
 
 const API_KEY = import.meta.env.VITE_APP_API_KEY
-//instructionsRequired=true
-//addRecipeNutrition=true
 
 function App() {
-  const [inputs, setInputs] = useState({
-      cuisine: "",
-      diet: "",
-      intolerances: "",
-      maxReadyTime: 60,
-      maxCarbs: 600,
-    });
+  const [diet, setDiet] = useState("");
+  const [maxReadyTime, setMaxReadyTime] = useState(600);
+  const [maxCals, setMaxCals] = useState(800);
   const [list, setList] = useState(null);
   const [totRecipes, setTotRecipes] = useState(0);
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
   
   useEffect(() => {
     const fetchAllRecipes = async() => {
@@ -28,30 +24,97 @@ function App() {
     }
     fetchAllRecipes().catch(console.error);
   }, [])
+
+  useEffect(() => {
+    if (!list) return;
+    console.log("API Results:", list.results);
+    console.log("Total fetched:", list.results.length);
+    const filterItems = () => {
+      let filteredData = list.results
+      if (diet) {
+        filteredData = filteredData.filter((item) => 
+        item.diets.includes(diet))
+      }
+      filteredData = filteredData.filter((item) => item.readyInMinutes <= maxReadyTime 
+        && item.nutrition?.nutrients?.find(n => n.name === "Calories")?.amount)
+      if (searchInput) {
+        filteredData = filteredData.filter((item) => 
+        item.title.toLowerCase().includes(searchInput.toLowerCase()))
+      }
+      setFilteredResults(filteredData)
+    }
+    filterItems();
+  }, [diet, maxReadyTime, maxCals, searchInput, list]) 
   
   return (
     <div>
       <h1>Recipe Dashboard</h1>
-      <h3>Find a new recipe to try! Discover foods from different cuisines or a new recipe for your dietary and nutritional needs!</h3>
-      <h3>Total Results: {totRecipes}</h3>
-      <h3>Total Showing: 10</h3>
-      <h3>Cuisines: 26</h3>
-      <h3>Diets: 11</h3>
+      <h3>Find a new recipe to try!</h3>
+
+      <div className="stats">
+        <h3>Total Results: {totRecipes}</h3>
+        <h3>Total Showing: 10</h3>
+        <h3>Cuisines: 26</h3>
+        <h3>Diets: 11</h3>
+      </div>
+
+      <div className="filters">
+        <input
+          type="text"
+          placeholder="Search..."
+          onChange={(inputString) => setSearchInput(inputString.target.value)}
+        />
+        <label htmlFor="diet">Diet: </label>
+        <select name="diet" id="diet" onChange={(input) => setDiet(input.target.value)}>
+          <option value="">--</option>
+          <option value="gluten free">Gluten Free</option>
+          <option value="keto">Keto</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="lacto vegetarian">Lacto-Vegetarian</option>
+          <option value="ovo vegetarian">Ovo-Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="pescetarian">Pescetarian</option>
+          <option value="primal">Primal</option>
+          <option value="low fodmap">Low FODMAP</option>
+          <option value="whole30">Whole30</option>
+        </select>
+        <label htmlFor="maxReadyTime">Max Ready Time: {maxReadyTime} </label>
+        <div className="slidecontainer">
+          <input 
+            type="range" 
+            min="10" 
+            max="600" 
+            value={maxReadyTime} 
+            className="slider" 
+            id="maxReadyTime"
+            onChange={(input) => setMaxReadyTime(input.target.value)}/>
+        </div>
+        <label htmlFor="maxCalories">Max Calories: {maxCals} </label>
+        <div className="slidecontainer">
+          <input 
+            type="range" 
+            min="50" 
+            max="800" 
+            value={maxCals} 
+            className="slider" 
+            id="maxCalories"
+            onChange={(input) => setMaxCals(input.target.value)}/>
+        </div>
+      </div>
+
       <div className="container">
         <ul>
-          {list &&
-            Object.entries(list.results)
-              .map(([recipe, recipeData]) => (
-                <RecipeInfo
-                  id={recipeData.id}
-                  title={recipeData.title}
-                  image={recipeData.image}
-                  url={recipeData.sourceUrl}
-                  servings={recipeData.servings}
-                  readyTime={recipeData.readyInMinutes}
-                  calories={recipeData.nutrition.nutrients[0].amount}
-                />
-              ))}
+          {filteredResults.map((recipeData) => (
+            <RecipeInfo
+              id={recipeData.id}
+              title={recipeData.title}
+              image={recipeData.image}
+              url={recipeData.sourceUrl}
+              servings={recipeData.servings}
+              readyTime={recipeData.readyInMinutes}
+              calories={recipeData.nutrition?.nutrients?.find(n => n.name === "Calories")?.amount}
+            />
+          ))}
         </ul>
       </div>
     </div>
