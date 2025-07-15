@@ -10,16 +10,18 @@ function App() {
   const [maxCals, setMaxCals] = useState(800);
   const [list, setList] = useState(null);
   const [totRecipes, setTotRecipes] = useState(0);
+  const [totShowing, setTotShowing] = useState(0);
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   
   useEffect(() => {
     const fetchAllRecipes = async() => {
       const response = await fetch (
-        "https://api.spoonacular.com/recipes/complexSearch?number=5&addRecipeNutrition=true&apiKey=" + API_KEY
+        "https://api.spoonacular.com/recipes/complexSearch?number=10&addRecipeNutrition=true&apiKey=" + API_KEY
       );
       const json = await response.json();
       setList(json);
+      setTotShowing(list.length);
       setTotRecipes(json.totalResults);
     }
     fetchAllRecipes().catch(console.error);
@@ -36,24 +38,27 @@ function App() {
         item.diets.includes(diet))
       }
       filteredData = filteredData.filter((item) => item.readyInMinutes <= maxReadyTime 
-        && item.nutrition?.nutrients?.find(n => n.name === "Calories")?.amount)
+        && item.nutrition?.nutrients?.find(n => n.name === "Calories")?.amount <= maxCals)
       if (searchInput) {
         filteredData = filteredData.filter((item) => 
         item.title.toLowerCase().includes(searchInput.toLowerCase()))
       }
-      setFilteredResults(filteredData)
+      setFilteredResults(filteredData);
+      setTotShowing(filteredResults.length);
     }
     filterItems();
   }, [diet, maxReadyTime, maxCals, searchInput, list]) 
   
   return (
-    <div>
+    <div className="container">
       <h1>Recipe Dashboard</h1>
       <h3>Find a new recipe to try!</h3>
+      <br />
+      <br />
 
       <div className="stats">
         <h3>Total Results: {totRecipes}</h3>
-        <h3>Total Showing: 10</h3>
+        <h3>Total Showing: {totShowing}</h3>
         <h3>Cuisines: 26</h3>
         <h3>Diets: 11</h3>
       </div>
@@ -102,11 +107,19 @@ function App() {
         </div>
       </div>
 
-      <div className="container">
+      <div className="dash-header">
+        <h6>Image</h6>
+        <h6>Name</h6>
+        <h6>Servings</h6>
+        <h6>Ready In (minutes)</h6>
+        <h6>Calories</h6>
+        <h6>Recipe Link</h6>
+      </div>
+      <div className="recipes">
         <ul>
           {filteredResults.map((recipeData) => (
             <RecipeInfo
-              id={recipeData.id}
+              key={recipeData.id}
               title={recipeData.title}
               image={recipeData.image}
               url={recipeData.sourceUrl}

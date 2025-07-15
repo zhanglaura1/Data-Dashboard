@@ -1,23 +1,17 @@
 import { useEffect, useState } from "react"
 const API_KEY = import.meta.env.VITE_APP_API_KEY
 
-const RecipeInfo = ({id, title, image, url, servings, readyTime, calories}) => {
+const RecipeInfo = ({title, image, url, servings, readyTime, calories}) => {
     return (
-        <div>
-            {url? (
-                <div className="recipe-card" key={id}>
-                    <h2>{title}</h2>
-                    <img src={image} alt="recipe image" />
-                    <div className="recipe-meta">
-                        <p>Servings: {servings}</p>
-                        <p>Ready in: {readyTime} minutes</p>
-                        <p>Calories: {calories}</p>
-                    </div>
-                    <a href={url}>Find full recipe here</a>
-                </div>
-            ) : null}
-        </div>
-    )
+    <li className="recipe-row">
+      <img src={image} alt={title} className="recipe-img" />
+      <span>{title}</span>
+      <span>{servings}</span>
+      <span>{readyTime}</span>
+      <span>{calories}</span>
+      <a href={url} target="_blank" rel="noopener noreferrer">View Recipe</a>
+    </li>
+  );
 }
 
 export default RecipeInfo;
