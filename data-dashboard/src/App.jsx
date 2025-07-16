@@ -17,11 +17,11 @@ function App() {
   useEffect(() => {
     const fetchAllRecipes = async() => {
       const response = await fetch (
-        "https://api.spoonacular.com/recipes/complexSearch?number=10&addRecipeNutrition=true&apiKey=" + API_KEY
+        "https://api.spoonacular.com/recipes/complexSearch?number=20&addRecipeNutrition=true&apiKey=" + API_KEY
       );
       const json = await response.json();
       setList(json);
-      setTotShowing(list.length);
+      setTotShowing(20);
       setTotRecipes(json.totalResults);
     }
     fetchAllRecipes().catch(console.error);
@@ -44,7 +44,7 @@ function App() {
         item.title.toLowerCase().includes(searchInput.toLowerCase()))
       }
       setFilteredResults(filteredData);
-      setTotShowing(filteredResults.length);
+      setTotShowing(filteredData.length);
     }
     filterItems();
   }, [diet, maxReadyTime, maxCals, searchInput, list]) 
@@ -60,7 +60,7 @@ function App() {
         <h3>Total Results: {totRecipes}</h3>
         <h3>Total Showing: {totShowing}</h3>
         <h3>Cuisines: 26</h3>
-        <h3>Diets: 11</h3>
+        <h3>Diets: 9</h3>
       </div>
 
       <div className="filters">
@@ -74,14 +74,13 @@ function App() {
           <option value="">--</option>
           <option value="gluten free">Gluten Free</option>
           <option value="keto">Keto</option>
-          <option value="vegetarian">Vegetarian</option>
-          <option value="lacto vegetarian">Lacto-Vegetarian</option>
-          <option value="ovo vegetarian">Ovo-Vegetarian</option>
+          <option value="lacto ovo vegetarian">Vegetarian</option>
           <option value="vegan">Vegan</option>
+          <option value="paleolithic">Paleolithic</option>
           <option value="pescetarian">Pescetarian</option>
           <option value="primal">Primal</option>
           <option value="low fodmap">Low FODMAP</option>
-          <option value="whole30">Whole30</option>
+          <option value="whole 30">Whole30</option>
         </select>
         <label htmlFor="maxReadyTime">Max Ready Time: {maxReadyTime} </label>
         <div className="slidecontainer">
