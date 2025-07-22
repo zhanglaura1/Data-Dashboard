@@ -44,9 +44,9 @@ const RecipeDetail = () => {
                 <h3>Ready in: {fullDetails.readyTime} minutes</h3>
                 <h3>Calories: {fullDetails.calories}</h3>
             </div>
-            <h4>Cuisines: {fullDetails.cuisines}</h4>
-            <h4>Diets: {fullDetails.diets}</h4>
-            <a href={fullDetails.url}>Click here for recipe link</a>
+            <h4>Cuisines: {fullDetails.cuisines.join(", ")}</h4>
+            <h4>Diets: {fullDetails.diets.join(", ")}</h4>
+            <a href={fullDetails.url} target="_blank">Click here for recipe link</a>
         </div>
     )
 }

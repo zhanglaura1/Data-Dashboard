@@ -4,6 +4,12 @@ function Layout(){
   return (
     <div>
       <nav>
+        <div className="header">
+          <h1>Recipe Dashboard</h1>
+          <h3>Find a new recipe to try!</h3>
+          <br />
+          <br />
+      </div>
         <ul>
             <li className="home-link" key="home-button">
             <Link style={{ color: "black", fontWeight: "bolder", textDecoration: "none" }} to="/">

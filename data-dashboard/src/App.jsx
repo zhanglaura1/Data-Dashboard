@@ -51,13 +51,6 @@ function App() {
   
   return (
     <div className="container">
-      <div className="header">
-          <h1>Recipe Dashboard</h1>
-          <h3>Find a new recipe to try!</h3>
-          <br />
-          <br />
-      </div>
-
       <div className="stats">
         <h3>Total Results: {totRecipes}</h3>
         <h3>Total Showing: {totShowing}</h3>
@@ -114,13 +107,13 @@ function App() {
         <h6>Servings</h6>
         <h6>Ready In (minutes)</h6>
         <h6>Calories</h6>
-        <h6>Recipe Link</h6>
+        <h6>Recipe Info</h6>
       </div>
       <div className="recipes">
         <ul>
           {filteredResults.map((recipeData) => (
             <RecipeInfo
-              key={recipeData.id}
+              id={recipeData.id}
               title={recipeData.title}
               image={recipeData.image}
               url={recipeData.sourceUrl}
