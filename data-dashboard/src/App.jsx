@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import RecipeInfo from "./Components/RecipeInfo"
+import CuisinesChart from "./Components/CuisinesChart"
 
 const API_KEY = import.meta.env.VITE_APP_API_KEY
 
@@ -99,6 +100,10 @@ function App() {
             id="maxCalories"
             onChange={(input) => setMaxCals(input.target.value)}/>
         </div>
+      </div>
+
+      <div className="charts">
+        <CuisinesChart list={list}/>
       </div>
 
       <div className="dash-header">
