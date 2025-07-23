@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import RecipeInfo from "./Components/RecipeInfo"
 import CuisinesChart from "./Components/CuisinesChart"
+import DietsChart from "./Components/DietsChart"
 
 const API_KEY = import.meta.env.VITE_APP_API_KEY
 
@@ -104,6 +105,7 @@ function App() {
 
       <div className="charts">
         <CuisinesChart list={list}/>
+        <DietsChart list={list}/>
       </div>
 
       <div className="dash-header">
