@@ -26,20 +26,24 @@ const DietsChart = ({list}) => {
         }
         const data = [];
         for (const d of Object.keys(freq)) {
-            data.push({name: d, value: freq[d]});
+            if (d == "lacto ovo vegetarian") {
+                data.push({name: "vegetarian", value: freq[d]})
+            } else {
+                data.push({name: d, value: freq[d]});
+            }
         }
         return data;
     }
     return (
         <div>
-            <h6>Diets Breakdown</h6>
+            <h4>Diets Breakdown</h4>
             <BarChart width={500} height={250} data={cleanData(diets)}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name"
                     angle={-45}
                     textAnchor="end"
                     interval={0} 
-                    height={60} />
+                    height={90} />
                 <YAxis />
                 <Tooltip />
                 <Bar dataKey="value" fill="#8982caff" maxBarSize="1"/>

@@ -9,7 +9,7 @@ const RecipeInfo = ({id, title, image, servings, readyTime, calories}) => {
       <span>{servings}</span>
       <span>{readyTime}</span>
       <span>{calories}</span>
-      <Link style={{ color: "Blue" }} to={`/recipeDetails/${id}`} key={id}>More Info</Link>
+      <Link to={`/recipeDetails/${id}`} key={id}>More Info</Link>
     </li>
   );
 }

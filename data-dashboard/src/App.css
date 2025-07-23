@@ -16,6 +16,7 @@ h1, h3, h6 {
   display: flex;
   justify-content: space-evenly;
   background-color: #fff;
+  margin-top: 120px;
   padding: 12px 20px;
   margin-bottom: 10px;
   border-radius: 8px;
@@ -40,7 +41,7 @@ h1, h3, h6 {
   gap: 20px;
   align-items: center;
   justify-content: space-between;
-  margin-top: 70px;
+  margin-top: 10px;
   margin-bottom: 20px;
   padding: 12px 20px;
   background-color: #fff;
@@ -126,4 +127,55 @@ ul {
 .container {
   display: flex;
   flex-direction: column;
+}
+
+.charts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-bottom: 30px;
+}
+
+.detail-page {
+  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.detail-img {
+  width:500px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 5px 2px rgba(0,0,0,0.1);
+}
+
+.detail-stats {
+  display: flex;
+  gap: 30px;
+}
+
+.lists {
+  font-weight: lighter;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: start;
+}
+
+.lists h4 {
+  font-weight: lighter;
+  margin: 10px;
+}
+
+.detail-page a {
+  color: #0077cc;
+  text-decoration: none;
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.detail-page a:hover {
+  text-decoration: underline;
 }

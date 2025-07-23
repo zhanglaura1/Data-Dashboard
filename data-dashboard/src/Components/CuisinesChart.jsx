@@ -32,10 +32,14 @@ const CuisinesChart = ({list}) => {
     }
     return (
         <div>
-            <h6>Cuisines Breakdown</h6>
+            <h4>Cuisines Breakdown</h4>
             <BarChart width={500} height={250} data={cleanData(cuisines)}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey="name"
+                    angle={-45}
+                    textAnchor="end"
+                    interval={0} 
+                    height={90} />
                 <YAxis />
                 <Tooltip />
                 <Bar dataKey="value" fill="#82ca9d" />

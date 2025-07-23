@@ -19,7 +19,7 @@ function App() {
   useEffect(() => {
     const fetchAllRecipes = async() => {
       const response = await fetch (
-        "https://api.spoonacular.com/recipes/complexSearch?number=5&addRecipeNutrition=true&apiKey=" + API_KEY
+        "https://api.spoonacular.com/recipes/complexSearch?number=20&addRecipeNutrition=true&apiKey=" + API_KEY
       );
       const json = await response.json();
       setList(json);

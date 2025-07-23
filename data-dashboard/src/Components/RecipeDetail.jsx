@@ -36,7 +36,7 @@ const RecipeDetail = () => {
     }, [id])
 
     return (
-        <div>
+        <div className="detail-page">
             <h1>{fullDetails.title}</h1>
             <img className="detail-img" src={fullDetails.image} alt="recipe image" />
             <div className="detail-stats">
@@ -44,8 +44,10 @@ const RecipeDetail = () => {
                 <h3>Ready in: {fullDetails.readyTime} minutes</h3>
                 <h3>Calories: {fullDetails.calories}</h3>
             </div>
-            <h4>Cuisines: {fullDetails.cuisines.join(", ")}</h4>
-            <h4>Diets: {fullDetails.diets.join(", ")}</h4>
+            <div className="lists">
+                <h4>Cuisines: {fullDetails.cuisines.join(", ")}</h4>
+                <h4>Diets: {fullDetails.diets.join(", ")}</h4>
+            </div>
             <a href={fullDetails.url} target="_blank">Click here for recipe link</a>
         </div>
     )
