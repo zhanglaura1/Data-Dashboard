@@ -2,7 +2,7 @@
 
 Submitted by: **Laura Zhang**
 
-This web app: **Find a new recipe to try by searching and filtering for a meal that fits your constraints.**
+This web app: **Find a new recipe to try by searching and filtering for a meal that fits your constraints. Recipes from Spoonacular API.**
 
 ## Functionality & Features
 - [X] **Clicking on an item in the list view displays more details about it**
